@@ -12,7 +12,6 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    //@NotNull
     private String name;
 
     private int quantity;
@@ -21,7 +20,6 @@ public class Item {
 
     private double amount;
 
-    //@NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "order_id")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)

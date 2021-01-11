@@ -3,7 +3,6 @@ package com.sl.ms.ordermanagement.model;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
-//import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "SL_ORDERS")
@@ -12,8 +11,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-   // @NotNull
-    private String name;
+   private String name;
 
     @Column(name = "total_amount")
     private double amount;

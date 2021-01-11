@@ -66,7 +66,7 @@ public class ProductController {
 
     @DeleteMapping("/products/{product_id}")
     public ResponseEntity<Inventory> delete(@PathVariable Integer product_id) {
-        Optional<Inventory> optionalOrder = service.getProduct(product_id);
+        Optional<Inventory> optionalOrder = service.getInv(product_id);
         if (!optionalOrder.isPresent()) {
             throw new ProductNotfoundException();
         }
@@ -82,8 +82,8 @@ public class ProductController {
     }
 
     @GetMapping("/products/{product_id}")
-    public ResponseEntity<Inventory> getById(@PathVariable Integer product_id) {
-        Optional<Inventory> optionalOrder = service.getProduct(product_id);
+    public ResponseEntity<Product> getById(@PathVariable Integer product_id) {
+        Optional<Product> optionalOrder = service.getProduct(product_id);
         if (!optionalOrder.isPresent()) {
             throw new ProductNotfoundException();
         }

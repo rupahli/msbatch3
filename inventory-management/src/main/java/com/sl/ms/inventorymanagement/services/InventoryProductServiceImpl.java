@@ -84,8 +84,14 @@ public class InventoryProductServiceImpl {
         return null;
     }
 
-    public Optional<Inventory> getProduct(Integer inv_id) {
+    public Optional<Product> getProduct(Integer inv_id) {
+        return productRepository.findById(inv_id);
+
+    }
+
+    public Optional<Inventory> getInv(Integer inv_id) {
         return inventoryRepository.findById(inv_id);
+
     }
 
     public Page<Inventory> getAllProducts(Pageable pageable) {

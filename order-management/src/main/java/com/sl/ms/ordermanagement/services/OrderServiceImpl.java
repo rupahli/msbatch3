@@ -26,9 +26,9 @@ public class OrderServiceImpl {
         this.inventoryServiceImpl = inventoryServiceImpl;
     }
 
-    public Order save(Order order) {
+    public Order save(Integer order_id,Order order) {
 
-        Object object = inventoryServiceImpl.checkInvProduct(order.getId());
+        Object object = inventoryServiceImpl.checkInvProduct(order_id);
         if (object instanceof Exception)
             throw new OrderNotfoundException();
         else if(object instanceof Map) {

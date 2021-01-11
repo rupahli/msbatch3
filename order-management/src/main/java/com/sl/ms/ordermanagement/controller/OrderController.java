@@ -24,27 +24,14 @@ public class OrderController {
        this.orderService = orderService;
     }
 
-    @PostMapping("/orders")
-    public ResponseEntity<Order> create(@RequestBody Order order) {
-        Order savedOrder = orderService.save(order);
+    @PostMapping("/orders/{order_id}")
+    public ResponseEntity<Order> create(@PathVariable Integer order_id,@RequestBody Order order) {
+        Order savedOrder = orderService.save(order_id,order);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
             .buildAndExpand(savedOrder.getId()).toUri();
 
         return ResponseEntity.created(location).body(savedOrder);
     }
-
-    /*@PutMapping("/orders/{order_id}")
-    public ResponseEntity<Order> update(@PathVariable Integer order_id, @RequestBody Order order) {
-        Optional<Order> optionalOrder = orderService.getProduct(order_id);
-        if (!optionalOrder.isPresent()) {
-            return ResponseEntity.unprocessableEntity().build();
-        }
-
-        order.setId(optionalOrder.get().getId());
-        orderService.save(order);
-
-        return ResponseEntity.noContent().build();
-    }*/
 
     @DeleteMapping("/orders/{order_id}")
     public ResponseEntity<Order> delete(@PathVariable Integer order_id) {
