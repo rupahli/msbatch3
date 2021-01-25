@@ -16,9 +16,13 @@ import javax.transaction.Transactional;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @RestController
 public class ProductController {
+
+    private static final Logger LOGGER = LogManager.getLogger(ProductController.class);
 
     private final InventoryProductServiceImpl service;
 
@@ -29,6 +33,7 @@ public class ProductController {
 
     @PostMapping("/products/file")
     public ResponseEntity<List<Inventory>> create(@RequestBody Inventory inv) {
+        LOGGER.info("Inside create : products/file : "+inv);
         List<Inventory> savedProduct = service.saveFile(inv);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
             .buildAndExpand(savedProduct.get(0).getId()).toUri();
@@ -94,5 +99,10 @@ public class ProductController {
     @GetMapping("/products")
     public ResponseEntity<Page<Inventory>> getAll(Pageable pageable) {
         return ResponseEntity.ok(service.getAllProducts(pageable));
+    }
+
+    @GetMapping("/supported")
+    public List<Product> supportedProducts() {
+        return service.getSupportedProducts();
     }
 }
