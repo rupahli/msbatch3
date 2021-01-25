@@ -27,10 +27,18 @@ public class OrderController {
     @PostMapping("/orders/{order_id}")
     public ResponseEntity<Order> create(@PathVariable Integer order_id,@RequestBody Order order) {
         Order savedOrder = orderService.save(order_id,order);
+        
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
             .buildAndExpand(savedOrder.getId()).toUri();
 
         return ResponseEntity.created(location).body(savedOrder);
+    }
+
+    @PostMapping("/order/{order_id}")
+    public Object createOrder(@PathVariable Integer order_id,@RequestBody Order order) {
+        Object result = orderService.saveOrder(order_id,order);
+
+        return result;
     }
 
     @DeleteMapping("/orders/{order_id}")

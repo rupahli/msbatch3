@@ -1,6 +1,8 @@
 spring:
   profiles:
     active: dev
+  application:
+    name: Order-Management
 rest:
   url: http://localhost:8888/dev/products
   token: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJzb2Z0dGVrSldUIiwic3ViIjoicnVwYWhsaSIsImF1dGhvcml0aWVzIjpbIlJPTEVfVVNFUiJdLCJpYXQiOjE2MTAzODAwNDksImV4cCI6MTYxMDM4MDY0OX0.De7xQWHCnzvS2t1NHp4gbuA7mPIvgT_ZtyaJdhol7HmTW5bTQFXNOxgvW-D-iBLHBYQ8mScGg8l1gfVyZE6fRA
