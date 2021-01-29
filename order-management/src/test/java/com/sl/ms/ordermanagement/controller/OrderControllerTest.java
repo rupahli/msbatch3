@@ -1,6 +1,6 @@
 package com.sl.ms.ordermanagement.controller;
 
-import com.fasterxml.jackson.core.type.TypeReference;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sl.ms.ordermanagement.model.Item;
 import com.sl.ms.ordermanagement.model.Order;
@@ -9,36 +9,19 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Import;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.*;
-import org.springframework.security.web.FilterChainProxy;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
-
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -94,7 +77,6 @@ class OrderControllerTest {
 
         String expected = "{\"id\":61,\"name\":\"first order\",\"amount\":400.0,\"items\":[{\"id\":61,\"name\":\"book\",\"quantity\":2,\"price\":100.0,\"amount\":200.0}]}";
 
-//        Assertions.assertEquals(expected, response.getBody());
 
         try {
            mockMvc.perform(MockMvcRequestBuilders.get("/orders/61"))
@@ -196,14 +178,12 @@ class OrderControllerTest {
 
         final Object result = orderControllerUnderTest.createOrder(0, order);
 
-        // Verify the results
+
     }
 
     @Test
     void testDelete() {
-        // Setup
 
-        // Configure OrderServiceImpl.getProduct(...).
         final Order order1 = new Order();
         order1.setAmount(0.0);
         order1.setId(0);
@@ -219,16 +199,16 @@ class OrderControllerTest {
         final Optional<Order> order = Optional.of(order1);
         when(mockOrderService.getProduct(0)).thenReturn(order);
 
-        // Run the test
+
         final ResponseEntity<Order> result = orderControllerUnderTest.delete(0);
 
-        // Verify the results
+
         verify(mockOrderService).deleteOrder(any(Order.class));
     }
 
     @Test
     void testDeleteLibraryInTransaction() {
-        // Setup
+
         final Order order = new Order();
         order.setAmount(0.0);
         order.setId(0);
@@ -242,10 +222,10 @@ class OrderControllerTest {
         item.setAmount(0.0);
         order.setItems(Set.of(item));
 
-        // Run the test
+
         orderControllerUnderTest.deleteLibraryInTransaction(order);
 
-        // Verify the results
+
         verify(mockOrderService).deleteOrder(any(Order.class));
     }
 

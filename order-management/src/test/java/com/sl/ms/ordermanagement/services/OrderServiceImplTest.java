@@ -42,7 +42,7 @@ class OrderServiceImplTest {
 
     @Test
     void testSave() {
-        // Setup
+
         final Order order = new Order();
         order.setAmount(0.0);
         order.setId(0);
@@ -58,7 +58,7 @@ class OrderServiceImplTest {
 
         when(mockInventoryServiceImpl.checkInvProduct(0)).thenReturn("result");
 
-        // Configure OrderRepository.save(...).
+
         final Order order1 = new Order();
         order1.setAmount(200);
         order1.setId(10);
@@ -77,7 +77,7 @@ class OrderServiceImplTest {
         OrderServiceImpl service=Mockito.mock(OrderServiceImpl.class);
         Mockito.doReturn(order1).when(service).save(Mockito.isA(Integer.class),Mockito.isA(Order.class));
 
-        // Run the test
+
         final Order result = service.save(0, order);
         System.out.println("RESULT" + result.toString());
         Assertions.assertEquals(result.getId(),10);
@@ -101,7 +101,7 @@ class OrderServiceImplTest {
         final Optional<Order> order = Optional.of(order1);
         when(mockOrderRepository.findById(10)).thenReturn(order);
 
-        // Run the test
+
         final Optional<Order> result = orderServiceImplUnderTest.getProduct(10);
         System.out.println("RESULT" + result.toString());
         Assertions.assertEquals(result.get().getId(),10);
@@ -135,7 +135,6 @@ class OrderServiceImplTest {
         final Page<Order> orders = new PageImpl<>(List.of(order1));
         when(mockOrderRepository.findAll(any(Pageable.class))).thenReturn(orders);
 
-        // Run the test
         final Page<Order> result = orderServiceImplUnderTest.getAllProducts(PageRequest.of(10, 1));
         System.out.println("RESULT" + result.toString());
         Assertions.assertEquals(result.get().findFirst().get().getId(),10);
@@ -143,7 +142,7 @@ class OrderServiceImplTest {
 
     @Test
     void testDeleteOrder() {
-        // Setup
+
         final Order order1 = new Order();
         order1.setAmount(200);
         order1.setId(10);
@@ -157,17 +156,14 @@ class OrderServiceImplTest {
         item1.setAmount(200);
         order1.setItems(Set.of(item1));
 
-        // Run the test
         orderServiceImplUnderTest.deleteOrder(order1);
 
-        // Verify the results
         verify(mockItemsRepository).deleteByOrderId(10);
         verify(mockOrderRepository).delete(any(Order.class));
     }
 
     @Test
     void testSaveOrder() {
-        // Setup
         final Order order1 = new Order();
         order1.setAmount(200);
         order1.setId(10);
@@ -183,7 +179,6 @@ class OrderServiceImplTest {
 
         when(mockInventoryServiceImpl.checkInvProduct(10)).thenReturn(order1);
 
-        // Run the test
         final Object result = orderServiceImplUnderTest.saveOrder(10, order1);
         System.out.println("RESULT" + result.toString());
         Assertions.assertEquals(((Order)result).getId(),10);
