@@ -44,6 +44,7 @@ public class InventoryServiceImpl {
 
         ResponseEntity<Map> responseEntity = restTemplate.exchange(url + "/{productid}", HttpMethod.GET, entity, Map.class,
                 productId);
+
         return responseEntity.getBody();
 
     }
