@@ -18,12 +18,13 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import org.apache.logging.log4j.LogManager;
-
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 
 @SpringBootApplication
 @EnableCaching
 @RestController
+@EnableSwagger2
 public class OrderManagementApplication {
 
     private static final Logger LOGGER= LogManager.getLogger(OrderManagementApplication.class.getName());
@@ -53,6 +54,9 @@ public class OrderManagementApplication {
                     .addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
                     .authorizeRequests()
                     .antMatchers(HttpMethod.POST, "/user").permitAll()
+                    .antMatchers("/swagger-ui.html**").permitAll()
+                    .antMatchers("/v2/api-docs**").permitAll()
+                    .antMatchers("/", "/csrf", "/v2/api-docs", "/configuration/ui", "/swagger-resources/**", "/configuration/**", "/swagger-ui.html", "/webjars/**").permitAll()
                     .anyRequest().authenticated();
         }
     }

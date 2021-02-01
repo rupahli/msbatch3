@@ -3,6 +3,8 @@ package com.sl.ms.ordermanagement.controller;
 import com.sl.ms.ordermanagement.exception.OrderNotfoundException;
 import com.sl.ms.ordermanagement.model.Order;
 import com.sl.ms.ordermanagement.services.OrderServiceImpl;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +17,7 @@ import java.net.URI;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/api")
 public class OrderController {
 
     private final OrderServiceImpl orderService;
@@ -70,6 +73,7 @@ public class OrderController {
         return ResponseEntity.ok(optionalOrder.get());
     }
 
+    @ApiOperation(value = "This method is used to get the Orders.")
     @GetMapping("/orders")
     public ResponseEntity<Page<Order>> getAll(Pageable pageable) {
         return ResponseEntity.ok(orderService.getAllProducts(pageable));
