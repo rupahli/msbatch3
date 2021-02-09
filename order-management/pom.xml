@@ -81,11 +81,9 @@
         </dependency>
 
         <dependency>
-            <groupId>oracle</groupId>
-            <artifactId>ojdbc6</artifactId>
-            <version>11.2.0.3</version>
-            <scope>system</scope>
-            <systemPath>C:/Users/ankit/.m2/repository/oracle/ojdbc6/11.2.0.3/ojdbc6-11.2.0.3.jar</systemPath>
+            <groupId>com.oracle.database.jdbc</groupId>
+            <artifactId>ojdbc8</artifactId>
+            <version>19.6.0.0</version>
         </dependency>
 
         <dependency>
